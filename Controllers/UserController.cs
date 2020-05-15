@@ -14,6 +14,7 @@ namespace AuthenticationApi.Controllers
     public class UserController : ControllerBase
     {
         [HttpGet] 
+        [Route("[action]")]
         [Authorize(Policy = Policies.User)] 
         public IActionResult GetUserData() 
         { 
