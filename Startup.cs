@@ -48,7 +48,16 @@ namespace AuthenticationApi
             { 
                 config.AddPolicy(Policies.Admin, Policies.AdminPolicy()); 
                 config.AddPolicy(Policies.User, Policies.UserPolicy()); 
-            });     
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOriginsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +67,8 @@ namespace AuthenticationApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowAllOriginsPolicy");
 
             app.UseRouting();
 

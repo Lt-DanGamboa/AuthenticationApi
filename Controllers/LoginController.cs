@@ -31,12 +31,12 @@ namespace AuthenticationApi.Controllers
         [AllowAnonymous] 
         public IActionResult Login(UserModel login) 
         { 
-            IActionResult response = Unauthorized(); 
+            IActionResult response = Ok(new TokenResponse{}); 
             UserModel user = AuthenticateUser(login); 
             if (user != null) 
             { 
                 var tokenString = GenerateJWTToken(user); 
-                response = Ok(new { token = tokenString, userDetails = user, }); 
+                response = Ok(new TokenResponse{ Token = tokenString, UserDetails = user, Success = true }); 
             } 
             return response; 
         }
